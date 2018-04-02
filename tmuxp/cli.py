@@ -423,11 +423,15 @@ def setup_logger(logger=None, level='INFO'):
         logger = logging.getLogger()
     if not logger.handlers:
         channel = logging.StreamHandler()
+        channel.setLevel(logging.INFO)
         channel.setFormatter(log.DebugLogFormatter())
 
-        # channel.setFormatter(log.LogFormatter())
+        filehandler = logging.FileHandler("tmuxp.log")
+        filehandler.setLevel(logging.DEBUG)
+
         logger.setLevel(level)
         logger.addHandler(channel)
+        logger.addHandler(filehandler)
 
 
 def startup(config_dir):
